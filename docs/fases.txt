@@ -1,1 +1,20 @@
-1. Crear repositorio github
+-- Preparar repositorio
+1. Crear repositorio github y clonar en carpeta
+2. Crear proyecto netbeans. Mover contenido carpeta a carpeta clonada
+IT-Rafa/dam_di_ud7_t1.git branch:main
+push github
+
+-- Inicio Tarea
+-- 1. Crear un nuevo proyecto Java que utilice código existente. 
+		El código existente será el proporcionado para la actividad.
+		
+		* Copiamos archivo Formulario.java de carpeta suministrada en enunciado
+		- Funciona al ejectuar la 2º vez; errores por paquetes fx
+		
+-- 2. Añade las librerías "Swing Layout Extension" al proyecto.
+
+-- 3. Construye el proyecto y crea el fichero JAR.
+
+-- 4. Ejecuta y comprueba que la aplicación se ejecuta fuera de NetBeans.
+
+-- 5. Crear un instalable con NSIS para instalar y ejecutar la aplicación en Windows.
