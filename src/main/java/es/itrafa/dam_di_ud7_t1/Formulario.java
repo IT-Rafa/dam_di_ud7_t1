@@ -5,15 +5,10 @@
  */
 package tarea_u07;
 
-
 import java.awt.Color;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static javafx.scene.paint.Color.color;
-import static javafx.scene.paint.Color.color;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -27,6 +22,7 @@ import javax.swing.text.Highlighter;
  *
  * @author Montaña Martin
  */
+@SuppressWarnings("serial")
 public class Formulario extends javax.swing.JFrame {
 
     /**
@@ -35,8 +31,7 @@ public class Formulario extends javax.swing.JFrame {
     public Formulario() {
         initComponents();
     }
-    
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -169,57 +164,52 @@ public class Formulario extends javax.swing.JFrame {
         jf.setFileFilter(filtro);
         jf.setFileFilter(filtro);
         seleccion = jf.showOpenDialog(jf);
-        if (seleccion == JFileChooser.APPROVE_OPTION)      {
-            
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
             ruta.setText(jf.getSelectedFile().getAbsolutePath());
             FileReader fr = null;
             BufferedReader br = null;
             File archivo = null;
             String linea;
-            String contenido="";
-              try {
-                 archivo = new File (jf.getSelectedFile().getAbsolutePath());
-                 if (archivo.isFile()){
-                 fr = new FileReader (archivo);
-                 br = new BufferedReader(fr);
-                 // Lectura del fichero
-                 
-                 while( ( linea = br.readLine() ) != null ){ 
-                     contenido += linea + "\n";
+            String contenido = "";
+            try {
+                archivo = new File(jf.getSelectedFile().getAbsolutePath());
+                if (archivo.isFile()) {
+                    fr = new FileReader(archivo);
+                    br = new BufferedReader(fr);
+                    // Lectura del fichero
+
+                    while ((linea = br.readLine()) != null) {
+                        contenido += linea + "\n";
+                    }
+                    salida.setText(contenido);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debes de seleccionar un fichero", "Error", JOptionPane.WARNING_MESSAGE);
                 }
-                 salida.setText(contenido);
-                 }
-                 else{
-                   JOptionPane.showMessageDialog(null, "Debes de seleccionar un fichero", "Error", JOptionPane.WARNING_MESSAGE);
-                 }
-              }
-               catch(Exception e){
-                    e.printStackTrace();
-               }finally{
-                try{
-                    if( null != fr ){
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (null != fr) {
                         fr.close();
                     }
-                }catch (Exception e2){
+                } catch (Exception e2) {
                     e2.printStackTrace();
                 }
-                }
+            }
         }
 
-        
+
     }//GEN-LAST:event_btnExaminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-    
-        buscarpalabra(salida,patron.getText());
+        buscarpalabra(salida, patron.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
-    
     public void buscarpalabra(JTextArea area1, String texto) {
         if (texto.length() >= 1) {
             DefaultHighlighter.DefaultHighlightPainter highlightPainter = new DefaultHighlighter.DefaultHighlightPainter(Color.GREEN);
@@ -232,13 +222,14 @@ public class Formulario extends javax.swing.JFrame {
             while (m.find()) {
                 try {
                     h.addHighlight(m.start(), m.end(), highlightPainter);
-                } catch (BadLocationException ex) {                  
+                } catch (BadLocationException ex) {
                 }
             }
         } else {
             JOptionPane.showMessageDialog(area1, "Debe de indicar el texto a buscar");
         }
     }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

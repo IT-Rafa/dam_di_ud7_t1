@@ -9,7 +9,8 @@ push github
 		El código existente será el proporcionado para la actividad.
 		
 		* Copiamos archivo Formulario.java de carpeta suministrada en enunciado
-		- Funciona al ejectuar la 2º vez; errores por paquetes fx
+		- Funciona al ejectuar la 2º vez; errores en import: repetido y static
+		* Eliminamos imports que dan error
 		
 -- 2. Añade las librerías "Swing Layout Extension" al proyecto.
 
