@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tarea_u07;
+package es.itrafa.dam_di_ud7_t1;
 
 import java.awt.Color;
 import java.io.*;

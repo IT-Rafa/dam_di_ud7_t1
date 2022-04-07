@@ -9,13 +9,86 @@ push github
 		El código existente será el proporcionado para la actividad.
 		
 		* Copiamos archivo Formulario.java de carpeta suministrada en enunciado
+		
 		- Funciona al ejectuar la 2º vez; errores en import: repetido y static
 		* Eliminamos imports que dan error
+		* Modificamos nombre paquete
+		* Entramos en Project Properties - Run, y con botón Browse.. al lado de MainClass: 
+			elegimos la clase principal
 		
+		- 1.2 El proyecto lo creamos con maven, por lo que no se creó carpeta builds
+			En su lugar está la carpeta target, con carpetas de maven, las clases generadas y, 
+			lo que importa, el archivo jar: dam_di_ud7_t1-1.0-SANPSHOT.jar
+			
+		- Con doble click en archivo jar no parece hacer nada
+		- Ejecutando en consola con: java -jar .\dam_di_ud7_t1-1.0-SNAPSHOT.jar
+			da error: no main manifest attribute, in .\dam_di_ud7_t1-1.0-SNAPSHOT.jar
+			Parece que falta archivo manifest.mf
+			
+		- Buscamos documentación maven y añadimos plugin maven-jar-plugin al pom.xml que añadirá el archivo manifest.mf dentro de
+			, modificando el contenido
+			de la etiqueta <mainClass> por es.itrafa.dam_di_ud7_t1.Formulario
+		
+Archivo pom.xml, dentro de <project> y tras <name>
+...
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <!-- Configures the content of the created manifest -->
+                        <manifest>
+                            <!-- Adds the classpath to the created manifest -->
+                            <addClasspath>true</addClasspath>
+                            <!-- Specifies that all dependencies of our application are found -->
+                            <!-- Configures the main class of the application -->
+                            <mainClass>es.itrafa.dam_di_ud7_t1.Formulario</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+...
+		- Intentamos Clean & Build, pero da error maven al intentar la parte Clean
+			Solucionado: La consola seguia abierta, aunque ya no estaba en carpeta target. Cerramos y OK
+		- Tras reconstruir proyecto, reintentamos. Funciona doble click y por consola (java -jar ....)
+		- Probamos a mover jar a otro equipo Windows, sin jse instalado
+		
+
+	
 -- 2. Añade las librerías "Swing Layout Extension" al proyecto.
 
 -- 3. Construye el proyecto y crea el fichero JAR.
 
 -- 4. Ejecuta y comprueba que la aplicación se ejecuta fuera de NetBeans.
-
+	-- Se ejecuta, incluso sin la librería añadida
+	
 -- 5. Crear un instalable con NSIS para instalar y ejecutar la aplicación en Windows.
+	-- Avisos idioma, pero se creo ejecutable ejemplo.exe: 2 warnings:
+		7025: "$(LANG_SPANISH)" is not a valid language id, using language id 1034! (D:\source\dam\di\dam_di_ud7_t1\nsis\script.nsi:41)
+		6040: LangString "SecDummy" is not set in language table of language Spanish
+		
+	-- Se ejecuta y aparentemente, funciona ok:
+		- Aparece el archivo .jar, con mismo nombre, y librería, en ruta de instalación.
+		- Aparece ok en registro Windows:
+			Equipo\HKEY_CURRENT_USER\SOFTWARE\ejemplo
+			
+		pero con comportamientos inesperados:
+		- No aparece desinstalador. Uninstall.exe
+		- No aparece en programas agregados recientemente
+		- No aparece desinstalador en Panel Control: Desinstalar o Cambiar un Programa
+		- Borramos carpeta libs y también funciona
+
+			
+		
+
+
+Pendiente
+- Nombre ejecutable instalador: ejemplo.exe a instalar.exe
+- Reparar fallo script nsis idioma
+- Que aparezca en programas recien instalados
+- Que aparezca en Panel de control para desinstalar
